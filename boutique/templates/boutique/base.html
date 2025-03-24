@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>Roohi By Fathima</title>
+</head>
+
+<body class="min-h-screen flex flex-col">
+  <header class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
+        <a href="{% url 'home' %}" class="ml-4 mr-6 hover:text-red-400">All</a>
+        <a href="{% url 'product_category' 'women' %}" class="mr-6 hover:text-red-400">Women</a>
+        <a href="{% url 'product_category' 'kids' %}" class="mr-6 hover:text-red-400">Kids</a>
+      </nav>
+      <a href="{% url 'home' %}" class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0">
+        <img src="{% static 'images/logo.jpg' %}" alt="Roohi Logo" class="w-10 h-10">
+        <span class="ml-3 text-l">Roohi by Fathima Aboobekar</span>
+      </a>
+      <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
+        {% if user.is_authenticated %}
+            <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-red-400 rounded text-base mt-4 md:mt-0"><a href="#"> Hey, {{user.username}}!</a></button>     
+            <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-red-400 rounded text-base ml-2 mt-4 md:mt-0">          
+            <a href="{% url 'logout' %}">  Logout</a>
+          </button>
+        {% elif not user.is_authenticated %}
+            <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-red-400 rounded text-base ml-2 mt-4 md:mt-0">
+              <a href="{% url 'login' %}">Login</a>
+            </button>
+          {% endif %}          
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 mt-2" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow relative">
+    <div class="absolute inset-0 bg-cover bg-center opacity-10" style="background-image: url('{% static "images/roohi-bg.jpg" %}');"></div>
+    <div class="relative z-10 p-5">
+      {% block content %}
+      {% endblock content %}
+    </div>
+  </main>
+  
+
+  <footer class="text-gray-600 body-font">
+    <div class="bg-gray-100">
+      <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
+        <p class="text-gray-500 text-sm text-center sm:text-left">© <span id="year"><script>document.write(new Date().getFullYear())</script></span>
+          Roohi by Fathima Aboobekar - 
+          <a href="https://www.instagram.com/roohi_by_fathimaaboobekar/" rel="noopener noreferrer" class="text-gray-600 ml-1" target="_blank">@roohi</a>
+        </p>
+        <span class="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
+          <a class="text-gray-500">...</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends "boutique/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="text-gray-600 body-font overflow-hidden">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="lg:w-4/5 mx-auto flex flex-wrap">
+        <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+          <h2 class="text-sm title-font text-gray-500 tracking-widest">Roohi</h2>
+          <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">{{ product.name }}</h1>
+          <div class="flex mb-4">
+            <a href="{% url 'product-details' product.pk %}" class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">Description</a>
+            <a class="flex-grow text-red-500 border-b-2 border-red-500 py-2 text-lg px-1">Reviews</a>
+          </div>
+
+
+          <div class="flex">
+            <div class="space-y-4">
+              {% for review in product.reviews.all %}
+                <div class="flex items-start">
+                  <div class="w-10 h-10 rounded-full bg-gray-200 mr-4">
+                    <img class="w-full h-full rounded-full object-cover" src="{% static 'images/user.svg' %}" alt="{{ review.user.username }}">
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-gray-800">{{ review.user.username }}</h3>
+                    <!-- <p class="text-sm text-gray-500">rated {{ review.rating}}  </p> -->
+                    <p class="text-sm text-gray-500 flex items-center">
+                      Rated 
+                      <span class="flex ml-1">
+                          {% for _ in review.rating|rjust:review.rating %}
+                              <img src="{% static 'images/star.svg' %}" alt="Star" class="w-4 h-4">
+                          {% endfor %}
+                      </span>
+                  </p>                  
+                    <p class="text-sm text-gray-500">{{ review.created_at|date:"F j, Y" }}</p>
+                    <div class="mt-2">
+                      <p class="text-gray-700">{{ review.comment }}</p>
+                    </div>
+                  </div>
+                </div>
+                
+              {% empty %}
+                <p>No reviews yet. Be the first to <a class="hover:text-red-400" href="{% url 'add-review' product.pk %}">review this product! </a> </p>
+              {% endfor %}
+              <p><a class="hover:text-red-400" href="{% url 'add-review' product.pk %}">Share your thoughts on this product! </a> </p>
+            </div>
+          </div>
+        </div>
+        <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="{{ product.image2.url }}">
+      </div>      
+    </div>
+
+</section>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "boutique/base.html" %}
+{% load static %}
+{% block content %}
+
+{% if messages %}
+  <div class="container mx-auto my-4">
+    {% for message in messages %}
+      <div class="relative p-4 rounded-md mb-4
+          {% if message.tags == 'success' %}
+            bg-green-100 text-green-800
+          {% elif message.tags == 'error' %}
+            bg-red-100 text-red-800
+          {% endif %}" id="message-{{ forloop.counter }}">
+        
+        <button class="absolute top-2 right-2 text-lg text-gray-500 hover:text-gray-700" onclick="closeMessage({{ forloop.counter }})">
+          &times;
+        </button>
+
+
+        {{ message }}
+      </div>
+
+      <!-- Timer to Auto-Close the message after 2 seconds -->
+      <script>
+        setTimeout(function() {
+          document.getElementById('message-{{ forloop.counter }}').style.display = 'none';
+        }, 2000);  // 2000ms = 2 seconds
+      </script>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-wrap -m-4">
+
+        {% for product in products  %}
+        <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+            <a href="{% url 'product-detail' product.pk %}" class="block relative h-48 rounded overflow-hidden">
+              <img class="object-cover object-center w-full h-full block hover: hover:scale-110 transition-all duration-400" src="{{product.image1.url}}">
+            </a>
+            <div class="mt-4">
+              <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{product.category}}</h3>
+              <h2 class="text-gray-900 title-font text-lg font-medium hover:text-red-400">
+                <a href="{% url 'product-detail' product.pk %}">{{product.name}}</a>                    
+              </h2>
+              <p class="mt-1">₹ {{product.price}}</p>
+            </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+ 
+   
