@@ -53,10 +53,9 @@ Roohi Site is a **custom boutique eCommerce platform** built using **Django** an
 ## Screenshots
 
 
-![Homepage](path/to/store-front.png)
-![Product Page](path/to/product_details.png)
-![User Registration](path/to/signup.png)
-
+![Homepage](https://github.com/hishamthajudheen/roohi-site/blob/master/screenshots/store-front.png)
+![Product Page](https://github.com/hishamthajudheen/roohi-site/blob/master/screenshots/product-details.png)
+![User Registration](https://github.com/hishamthajudheen/roohi-site/blob/master/screenshots/signup.png)
 ## To-Do
 
 - [ ] Improve order management in the admin panel
