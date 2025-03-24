@@ -20,15 +20,60 @@
         {{ message }}
       </div>
 
-      <!-- Timer to Auto-Close the message after 2 seconds -->
       <script>
         setTimeout(function() {
           document.getElementById('message-{{ forloop.counter }}').style.display = 'none';
-        }, 2000);  // 2000ms = 2 seconds
+        }, 1000);
       </script>
     {% endfor %}
   </div>
 {% endif %}
+
+
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    
+    <div class="swiper newest-products-carousel">
+      <h1 class="text-xl ">Newest Arrivals</h1>
+        <div class="swiper-wrapper">
+            {% for product in latest_products %}
+                {% if product.image1 %}
+                    <div class="swiper-slide">
+                        <a href="{% url 'product-detail' product.pk %}" class="block relative h-80 rounded overflow-hidden">
+                            <img class="object-cover object-center w-full h-full hover:scale-110 transition-all duration-400" 
+                                 src="{{ product.image1.url }}" alt="{{ product.name }}">
+                        </a>
+                    </div>
+                {% endif %}
+                {% if product.image2 %}
+                    <div class="swiper-slide">
+                        <a href="{% url 'product-detail' product.pk %}" class="block relative h-80 rounded overflow-hidden">
+                            <img class="object-cover object-center w-full h-full hover:scale-110 transition-all duration-400" 
+                                 src="{{ product.image2.url }}" alt="{{ product.name }}">
+                        </a>
+                    </div>
+                {% endif %}
+                {% if product.image3 %}
+                    <div class="swiper-slide">
+                        <a href="{% url 'product-detail' product.pk %}" class="block relative h-80 rounded overflow-hidden">
+                            <img class="object-cover object-center w-full h-full hover:scale-110 transition-all duration-400" 
+                                 src="{{ product.image3.url }}" alt="{{ product.name }}">
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Swiper Navigation & Pagination -->
+        <div class="swiper-pagination" ></div>
+        <div class="swiper-button-next !text-white !bg-red-500"></div>
+        <div class="swiper-button-prev !text-white !bg-red-500"></div>
+    </div>
+
+  </div>
+</section>
+
+
 
 
 

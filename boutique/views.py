@@ -7,7 +7,8 @@ from .models import Product
 
 def home(request):
     products = Product.objects.all()
-    return render(request, 'boutique/home.html',{"products":products})
+    latest_products = Product.objects.order_by('-created_at')[:3]
+    return render(request, 'boutique/home.html',{"products":products, "latest_products": latest_products})
 
 def productDetail(request, pk):
     product = get_object_or_404(Product, pk=pk)
